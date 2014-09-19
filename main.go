@@ -3,7 +3,16 @@ package main
 import (
 	"fmt"
 	"time"
+	"encoding/json"
+	"log"
+	"bufio"
+	"os"
 )
+
+type UserAccount struct {
+	Name string
+	CurrentLevel int
+}
 
 type Question struct {
 	Title string
@@ -18,12 +27,15 @@ type Lesson struct {
 }
 
 type Level struct {
+	LevelCount int
 	Name string
 	Description string
 	Lessons []Lesson
 }
 
-
+func (l *Level) ListAllLessons() []Lesson {
+	return l.Lessons
+}
 
 func main(){
 	now := time.Now()
@@ -44,6 +56,23 @@ func main(){
 	lesson1.NumberOfQuestions = len(lesson1.Questions)
 	lessons[0] = lesson1
 	level1.Lessons = lessons
-	fmt.Println(level1)
+	group, err := json.Marshal(level1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(string(group))
+	fmt.Println(level1.ListAllLessons())
+	user := UserAccount{}
+	fmt.Println("Welcome to magic of German Language")
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter name:")
+	text, _ := reader.ReadString('\n')
+	user.Name = text
+	fmt.Print("Enter level")
+	var i int
+	fmt.Scanf("%d", &i)
+	fmt.Println(i)
+	user.CurrentLevel = i
+	fmt.Println(user)
 }
 
