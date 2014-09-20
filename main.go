@@ -1,43 +1,43 @@
 package main
 
 import (
-	"fmt"
-	"time"
-	"encoding/json"
-	"log"
 	"bufio"
+	"encoding/json"
+	"fmt"
+	"log"
 	"os"
+	"time"
 )
 
 type UserAccount struct {
-	Name string
+	Name         string
 	CurrentLevel int
 }
 
 type Question struct {
-	Title string
+	Title  string
 	Answer string
 }
 
 type Lesson struct {
-	Name string
-	Description string
+	Name              string
+	Description       string
 	NumberOfQuestions int
-	Questions []Question
+	Questions         []Question
 }
 
 type Level struct {
-	LevelCount int
-	Name string
+	LevelCount  int
+	Name        string
 	Description string
-	Lessons []Lesson
+	Lessons     []Lesson
 }
 
 func (l *Level) ListAllLessons() []Lesson {
 	return l.Lessons
 }
 
-func main(){
+func main1() {
 	now := time.Now()
 	fmt.Println(now.Date())
 	//add level
@@ -49,9 +49,9 @@ func main(){
 	lesson1.Description = "This is a long description"
 	//add questions for lesson 1
 	questions := make([]Question, 3)
-	questions[0]= Question{"A title", "an aswer"}
-	questions[1]= Question{"A title1", "an aswer1"}
-	questions[2]= Question{"A title2", "an aswer2"}
+	questions[0] = Question{"A title", "an aswer"}
+	questions[1] = Question{"A title1", "an aswer1"}
+	questions[2] = Question{"A title2", "an aswer2"}
 	lesson1.Questions = questions
 	lesson1.NumberOfQuestions = len(lesson1.Questions)
 	lessons[0] = lesson1
@@ -75,4 +75,3 @@ func main(){
 	user.CurrentLevel = i
 	fmt.Println(user)
 }
-
