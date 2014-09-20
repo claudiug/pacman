@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	_ "fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -30,7 +29,7 @@ func main() {
 		Name        string `json:"name"`
 		Description string `json:"description"`
 		Points      int    `json:"points"`
-		Status      bool   `json:"status"`
+		Status      int    `json:"status"`
 		Level_Id    int    `json:"level_id"`
 	}
 
@@ -49,7 +48,7 @@ func main() {
 			rows.StructScan(&lesson)
 			lessons = append(lessons, lesson)
 		}
-
+		rows.Close()
 		c.JSON(200, lessons)
 	})
 
@@ -64,6 +63,8 @@ func main() {
 			levels = append(levels, level)
 		}
 
+		rows.Close()
+
 		c.JSON(200, levels)
 	})
 
@@ -77,6 +78,7 @@ func main() {
 			rows.StructScan(&question)
 			questions = append(questions, question)
 		}
+		rows.Close()
 
 		c.JSON(200, questions)
 	})
@@ -111,6 +113,15 @@ func main() {
 		db.Get(&lesson, "select * from lessons where id=?", id)
 		fmt.Println(lesson)
 		c.JSON(200, lesson)
+	})
+
+	router.PUT("/lessons/status/:value/:id", func(c *gin.Context) {
+		value := c.Params.ByName("value")
+		id := c.Params.ByName("id")
+		query := "update lessons set level_id=? where id=?"
+		result,_ := db.MustExec(query, value, id).RowsAffected()
+		fmt.Println(value)
+		c.JSON(200,result)
 	})
 
 	router.Run(":3001")
