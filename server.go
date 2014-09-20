@@ -12,7 +12,7 @@ import (
 	_ "log"
 )
 
-func main() {
+func main34() {
 
 	type Lesson struct {
 		Id          int    `json:"id"`
