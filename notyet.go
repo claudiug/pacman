@@ -2,14 +2,14 @@ package notyet
 
 import "fmt"
 
-func main() {
+func main1() {
 	fmt.Printf("Hello world!\n")
 	value := 10
 
 	result := changeValue(value)
 	fmt.Println(result)
 	fmt.Println(value)
-	fmt.Println(sum(10,4))
+	fmt.Println(sum(10, 4))
 	fmt.Println(swap("claudiu", "garba"))
 	fmt.Println(addUntil(10))
 }
@@ -24,14 +24,14 @@ func sum(x int, y int) int {
 	return result
 }
 
-func swap(first, second string)(string, string){
+func swap(first, second string) (string, string) {
 	return second, first
 }
 
-func addUntil(number int) int{
-	result :=0
-	for i:=0; i< number; i++{
-		result +=i
+func addUntil(number int) int {
+	result := 0
+	for i := 0; i < number; i++ {
+		result += i
 	}
 	return result
 }
