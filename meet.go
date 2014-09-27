@@ -21,7 +21,7 @@ func (v *Vertex) Scale(f float64)  {
 	v.Y = v.Y * f
 }
 
-func main() {
+func maina() {
 	v := &Vertex{10, 20, "c"}
 	v.Y = 100
 	v.X = 200
